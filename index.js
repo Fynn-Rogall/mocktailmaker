@@ -16,14 +16,15 @@ function createWindow() {
     autoHideMenuBar: true,
     titleBarStyle: 'hidden',
   });
-
-  const startURL = isDev
+    const startURL = isDev
     ? 'http://localhost:3000'
     : `file://${path.join(__dirname, '../build/index.html')}`;
 
   mainWindow.loadURL(startURL);
 
   mainWindow.on('closed', () => (mainWindow = null));
+
+
 }
 
 app.on('ready', createWindow);
