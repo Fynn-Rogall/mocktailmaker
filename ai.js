@@ -1,42 +1,39 @@
-import {gpt} from 'gpti';
-// import fs from 'fs';
+const { gpt } = require("gpti");
 
-export async function SendQuickChatReq(UserInput: string, callback: any) {
+export async function SendQuickChatReq(UserInput, callback) {
   return new Promise((resolve, reject) => {
-    let previousMessages: any = {messages: []};
- //  const previousData = fs.readFileSync('previousConversation.json', 'utf8');
-  //  previousMessages = JSON.parse(previousData);
+    let previousMessages = {messages: []};
+    const previousData = localStorage.getItem('previousConversation');
+    if (previousData) {
+      previousMessages = JSON.parse(previousData);
+    }
 
-    const currentMessages:any[] = [];
-   // previousMessages.messages.push(...currentMessages);
-    //const inputToJson = {role: "user", content: UserInput};
-  //  previousMessages.messages.push(inputToJson);
+    const currentMessages = [];
+    previousMessages.messages.push(...currentMessages);
+    const inputToJson = {role: "user", content: UserInput};
+    previousMessages.messages.push(inputToJson);
 
     gpt({
-     // messages: previousMessages.messages,
+      messages: previousMessages.messages,
       prompt: UserInput,
-      model: "GPT-4",
+      model: "gpt-3.5-turbo",
       markdown: false
     }, (err, data) => {
       if (err != null) {
         console.log(err);
         reject(err);
       } else {
-        //const responseToJson = {role: "assistant", content: data.gpt};
-        //previousMessages.messages.push(responseToJson);
-      //  fs.writeFile('previousConversation.json', JSON.stringify(previousMessages), 'utf8', (err) => {
+        const responseToJson = {role: "assistant", content: data.gpt};
+        previousMessages.messages.push(responseToJson);
+        localStorage.setItem('previousConversation', JSON.stringify(previousMessages));
           if (err) {
             console.error(err);
             reject(err);
           } else {
-
-            callback(data.gpt);
+            console.log(data.gpt)
+            return resolve(data.gpt);
           }
-      //  });
       }
     });
   });
 }
-
-
-// module.exports = {SendQuickChatReq};

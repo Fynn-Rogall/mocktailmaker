@@ -5,3 +5,7 @@
 .movable {
     -webkit-app-region: drag;
 }
+
+input:focus {
+    outline: none;
+}
