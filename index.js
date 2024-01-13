@@ -1,5 +1,5 @@
 // electron.js
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow,globalShortcut  } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
 
@@ -15,6 +15,7 @@ function createWindow() {
     frame: false,
     autoHideMenuBar: true,
     titleBarStyle: 'hidden',
+    skipTaskbar: true
   });
     const startURL = isDev
     ? 'http://localhost:3000'
@@ -27,7 +28,12 @@ function createWindow() {
 
 }
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+  globalShortcut.register('CommandOrControl+X', createWindow)
+
+
+
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
