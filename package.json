@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "gpti": "^2.0.0",
+    "html-react-parser": "^5.1.1",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
