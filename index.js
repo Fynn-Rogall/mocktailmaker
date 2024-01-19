@@ -15,7 +15,6 @@ function createWindow() {
     frame: false,
     autoHideMenuBar: true,
     titleBarStyle: 'hidden',
-    skipTaskbar: true
   });
     const startURL = isDev
     ? 'http://localhost:3000'
@@ -29,7 +28,7 @@ function createWindow() {
 }
 
 app.on('ready', () => {
-  globalShortcut.register('CommandOrControl+X', createWindow)
+  globalShortcut.register('CommandOrControl+K', createWindow)
 
 
 

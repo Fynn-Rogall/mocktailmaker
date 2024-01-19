@@ -17,7 +17,8 @@ export async function SendQuickChatReq(UserInput, callback) {
       messages: previousMessages.messages,
       prompt: UserInput,
       model: "gpt-3.5-turbo",
-      markdown: false
+      markdown: false,
+      stream: true
     }, (err, data) => {
       if (err != null) {
         console.log(err);
