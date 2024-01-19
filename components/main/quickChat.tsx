@@ -4,7 +4,7 @@ import {BsStars} from "react-icons/bs";
 import {VscSend} from "react-icons/vsc";
 
 import { SendQuickChatReq } from '@/ai'
-export default async function QuickChat() {
+export default function QuickChat() {
 
   const userName = 'John Doe'
 
