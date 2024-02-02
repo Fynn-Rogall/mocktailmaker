@@ -1,5 +1,5 @@
 // electron.js
-const { app, BrowserWindow,globalShortcut  } = require('electron');
+const { app, BrowserWindow,globalShortcut, ipcMain  } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
 const nodeChildProcess = require('child_process');
@@ -14,10 +14,12 @@ function createWindow() {
       height: 600,
       webPreferences: {
         nodeIntegration: true,
+         enableRemoteModule: true,
       },
       frame: false,
       autoHideMenuBar: true,
       titleBarStyle: 'hidden',
+
     });
     const startURL = isDev
       ? 'http://localhost:3000'
@@ -31,7 +33,8 @@ function createWindow() {
 }
 
 function runScript() {
-  let script = nodeChildProcess.spawn('bash', ['test.sh', 'arg1', 'arg2']);
+  let script = nodeChildProcess.spawn('bash', [`kiba.sh`]);
+
   console.log('PID: ' + script.pid);
    script.stdout.on('data', (data) => {
         console.log('stdout: ' + data);
@@ -45,6 +48,10 @@ function runScript() {
         console.log('Exit Code: ' + code);
     });
 }
+
+app.whenReady().then(() => {
+  ipcMain.on('pressKiBa', runScript)
+})
 
 app.on('ready', () => {
   createWindow();
